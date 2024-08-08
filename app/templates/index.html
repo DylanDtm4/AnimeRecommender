@@ -1,0 +1,66 @@
+<!-- app/templates/index.html -->
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Flask App</title>
+	</head>
+	<body>
+		<h1>Anime Search</h1>
+
+		<form method="POST" action="{{ url_for('main.search') }}">
+			<h2>Select Genres</h2>
+			<label for="genres">Genres:</label><br />
+			{% for genre in genres %}
+			<input type="checkbox" id="genres" name="genres" value="{{ genre }}" /> {{
+			genre }}<br />
+			{% endfor %}
+			<br />
+
+			<label for="explicit_genres">Explicit Genres:</label><br />
+			{% for genre in explicit_genres %}
+			<input
+				type="checkbox"
+				id="explicit_genres"
+				name="explicit_genres"
+				value="{{ genre }}"
+			/>
+			{{ genre }}<br />
+			{% endfor %}
+			<br />
+
+			<label for="themes">Themes:</label><br />
+			{% for theme in themes %}
+			<input type="checkbox" id="themes" name="themes" value="{{ theme }}" /> {{
+			theme }}<br />
+			{% endfor %}
+			<br />
+
+			<label for="demographics">Demographics:</label><br />
+			{% for demographic in demographics %}
+			<input
+				type="checkbox"
+				id="demographics"
+				name="demographics"
+				value="{{ demographic }}"
+			/>
+			{{ demographic }}<br />
+			{% endfor %}
+			<br />
+
+			<input type="submit" value="Search" />
+		</form>
+
+		{% if error %}
+		<p>{{ error }}</p>
+		{% endif %} {% if english_titles %}
+		<h2>Results</h2>
+		<ul>
+			{% for title in english_titles %}
+			<li>{{ title }}</li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+	</body>
+</html>
