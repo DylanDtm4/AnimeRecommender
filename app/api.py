@@ -10,7 +10,7 @@ def fetch_paginated_data(base_url):
     base_backoff = 2  # Base backoff time in seconds
 
     while page <= max_pages:
-        url = f"{base_url}&page={page}"
+        url = f"{base_url}{page}"
         retries = 0
         
         while retries < max_retries:

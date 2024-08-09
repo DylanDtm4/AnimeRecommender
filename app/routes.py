@@ -28,15 +28,13 @@ def get_genre_numbers(data, genre_list):
     
     return genre_numbers_list
 
-def get_english_titles(data):
-    english_titles = []
+def get_titles(data):
+    titles = []
     
     for item in data:
-        for title in item['titles']:
-            if title['type'] == 'English':
-                english_titles.append(title['title'])
+        titles.append(item['title'])
 
-    return english_titles
+    return titles
 
 @bp.route('/')
 def home():
@@ -64,14 +62,16 @@ def search():
         combined_numbers = [full_list_genres.index(genre) + 1 for genre in combined_selections]
         
         if not combined_numbers:
-            url = 'https://anime-api-livid.vercel.app/animes'
+            url = 'https://anime-api-livid.vercel.app/animes?pages='
         else:
-            url = 'https://anime-api-livid.vercel.app/animes?genres=' + ','.join(map(str, combined_numbers))
+            url = 'https://anime-api-livid.vercel.app/animes?genres=' + ','.join(map(str, combined_numbers)) + '&pages='
 
         anime_list = fetch_all_anime(url)
-        english_titles = get_english_titles(anime_list)
+        titles = get_titles(anime_list)
 
-        if not english_titles:
+        print(titles)
+        
+        if not titles:
             return render_template('index.html', 
                                    genres=list_genres, 
                                    explicit_genres=list_explicit_genres, 
@@ -84,7 +84,7 @@ def search():
                                    explicit_genres=list_explicit_genres, 
                                    themes=list_themes, 
                                    demographics=list_demographics, 
-                                   english_titles=english_titles)
+                                   titles=titles)
 
     except requests.HTTPError as e:
         return render_template('index.html', 
