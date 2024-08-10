@@ -41,7 +41,7 @@ def home():
     genre_data = fetch_all_genres()
     genre_lists = get_genre_lists(genre_data)
     list_genres, list_explicit_genres, list_themes, list_demographics = genre_lists
-    return render_template('index.html', 
+    return render_template('search.html', 
                            genres=list_genres, 
                            explicit_genres=list_explicit_genres, 
                            themes=list_themes, 
@@ -71,25 +71,8 @@ def search():
 
         print(titles)
         
-        if not titles:
-            return render_template('index.html', 
-                                   genres=list_genres, 
-                                   explicit_genres=list_explicit_genres, 
-                                   themes=list_themes, 
-                                   demographics=list_demographics, 
-                                   error="No animes found that match your selections")
-        else:
-            return render_template('index.html', 
-                                   genres=list_genres, 
-                                   explicit_genres=list_explicit_genres, 
-                                   themes=list_themes, 
-                                   demographics=list_demographics, 
-                                   titles=titles)
+        # show results
+        return render_template('results.html', english_titles=titles)
 
     except requests.HTTPError as e:
-        return render_template('index.html', 
-                               genres=list_genres, 
-                               explicit_genres=list_explicit_genres, 
-                               themes=list_themes, 
-                               demographics=list_demographics, 
-                               error=f"An error occurred: {e}")
+        return render_template('error.html', error_message="Something went wrong: " + str(e))

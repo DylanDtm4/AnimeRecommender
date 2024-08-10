@@ -1,4 +1,4 @@
-<!-- app/templates/index.html -->
+<!-- app/templates/search.html -->
 <!doctype html>
 <html lang="en">
 	<head>
@@ -54,10 +54,10 @@
 
 		{% if error %}
 		<p>{{ error }}</p>
-		{% endif %} {% if english_titles %}
+		{% endif %} {% if titles %}
 		<h2>Results</h2>
 		<ul>
-			{% for title in english_titles %}
+			{% for title in titles %}
 			<li>{{ title }}</li>
 			{% endfor %}
 		</ul>
