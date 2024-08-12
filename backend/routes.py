@@ -68,8 +68,6 @@ def search():
 
         anime_list = fetch_all_anime(url)
         titles = get_titles(anime_list)
-
-        print(titles)
         
         # show results
         return render_template('results.html', english_titles=titles)
