@@ -62,9 +62,9 @@ def search():
         combined_numbers = [full_list_genres.index(genre) + 1 for genre in combined_selections]
         
         if not combined_numbers:
-            url = 'https://anime-api-livid.vercel.app/animes?pages='
+            url = 'https://anime-api-livid.vercel.app/animes?page='
         else:
-            url = 'https://anime-api-livid.vercel.app/animes?genres=' + ','.join(map(str, combined_numbers)) + '&pages='
+            url = 'https://anime-api-livid.vercel.app/animes?genres=' + ','.join(map(str, combined_numbers)) + '&page='
 
         anime_list = fetch_all_anime(url)
         titles = get_titles(anime_list)
