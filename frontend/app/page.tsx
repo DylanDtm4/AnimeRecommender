@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 
 interface Genre {
 	ord_id: number;
@@ -8,6 +9,8 @@ interface Genre {
 
 function Page() {
 	const [genres, setGenres] = useState<Genre[]>([]);
+	const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+
 	useEffect(() => {
 		fetch("https://anime-api-livid.vercel.app/genres")
 			.then((response) => response.json())
@@ -16,8 +19,6 @@ function Page() {
 				setGenres(data);
 			});
 	}, []);
-
-	const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 
 	const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { value, checked } = event.target;
@@ -29,6 +30,10 @@ function Page() {
 	};
 
 	const isSelected = (name: string) => selectedGenres.includes(name);
+
+	const handleClick = () => {
+		localStorage.setItem("selectedGenres", JSON.stringify(selectedGenres));
+	};
 
 	return (
 		<div>
@@ -48,6 +53,9 @@ function Page() {
 					</div>
 				))}
 			</ul>
+			<Link href="/animes" onClick={handleClick}>
+				Go to Animes
+			</Link>
 		</div>
 	);
 }
