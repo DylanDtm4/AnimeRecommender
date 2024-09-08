@@ -63,6 +63,11 @@ def fetch_single_page_data(url):
 def fetch_all_genres():
     return fetch_single_page_data('https://anime-api-livid.vercel.app/genres')
 
+
 def fetch_all_anime(url):
     return fetch_paginated_data(url)
 
+
+if __name__ == "__main__":
+    genres = fetch_all_genres()
+    print(genres)
